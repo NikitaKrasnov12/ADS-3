@@ -6,17 +6,26 @@ int cbinsearch(int *arr, int size, int value) {
     int count = 0;
     while (start <= end) {
         int half = (start + end) / 2;
-        int i = half - 1;
-        while (i >= start && arr[i] == value) {
-            count++;
-            i--;
+        if (arr[half] == value) {
+            int i = half - 1;
+            while (i >= start && arr[i] == value) {
+                count++;
+                i--;
+            }
+            int k = half + 1;
+            while (k <= end && arr[k] == value) {
+                count++;
+                k++;
+            }
+            return count;
         }
-        int k = half + 1;
-        while (k <= end && arr[k] == value) {
-            count++;
-            k++;
+        else if (arr[half] < value) {
+            start = half + 1;
         }
-        return count;
+        else {
+            end = half - 1;
+        }
+
     }
     return 0;
 }
